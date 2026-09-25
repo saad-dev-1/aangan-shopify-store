@@ -1,0 +1,203 @@
+{%- style -%}
+  .aangan-testimonials {
+    background-color: #1A1614;
+    padding: 6rem 0;
+  }
+
+  .aangan-testimonials__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5rem;
+  }
+
+  .aangan-testimonials__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .aangan-testimonials__eyebrow {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C4A57B;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .aangan-testimonials__title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #F5F0E8;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .aangan-testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .aangan-testimonial {
+    background-color: #252017;
+    padding: 2.5rem 2rem;
+    border: 1px solid rgba(245, 240, 232, 0.08);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aangan-testimonial__stars {
+    color: #C4A57B;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+  }
+
+  .aangan-testimonial__quote {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #F5F0E8;
+    margin: 0 0 2rem 0;
+    flex-grow: 1;
+  }
+
+  .aangan-testimonial__author {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #F5F0E8;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .aangan-testimonial__location {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.85rem;
+    color: #A8A095;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 990px) {
+    .aangan-testimonials__grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .aangan-testimonials__container { padding: 0 2rem; }
+    .aangan-testimonials { padding: 4rem 0; }
+  }
+
+  @media screen and (max-width: 550px) {
+    .aangan-testimonials__container { padding: 0 1.5rem; }
+    .aangan-testimonial { padding: 2rem 1.5rem; }
+  }
+{%- endstyle -%}
+
+<section class="aangan-testimonials">
+  <div class="aangan-testimonials__container">
+    <div class="aangan-testimonials__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="aangan-testimonials__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      <h2 class="aangan-testimonials__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="aangan-testimonials__grid">
+      {%- for block in section.blocks -%}
+        <div class="aangan-testimonial" {{ block.shopify_attributes }}>
+          <div class="aangan-testimonial__stars">
+            {%- for i in (1..block.settings.rating) -%}★{%- endfor -%}
+          </div>
+          <p class="aangan-testimonial__quote">"{{ block.settings.quote }}"</p>
+          <p class="aangan-testimonial__author">{{ block.settings.author }}</p>
+          <p class="aangan-testimonial__location">{{ block.settings.location }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aangan Testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Loved by Homes Across Pakistan"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "The quality is exceptional. My living room finally feels complete."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Ayesha Khan"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Location",
+          "default": "Lahore"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aangan Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The craftsmanship is unmatched. Every piece feels like it was made just for my home.",
+            "author": "Ayesha Khan",
+            "location": "Lahore"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Beautiful designs, premium quality, and delivery was on time. Highly recommended.",
+            "author": "Bilal Ahmed",
+            "location": "Karachi"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Aangan transformed my apartment. The brass floor lamp is a conversation starter.",
+            "author": "Sana Malik",
+            "location": "Islamabad"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

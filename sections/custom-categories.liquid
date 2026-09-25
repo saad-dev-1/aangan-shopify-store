@@ -1,0 +1,161 @@
+{%- style -%}
+  .aangan-categories {
+    background-color: #1A1614;
+    padding: 6rem 0;
+  }
+
+  .aangan-categories__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5rem;
+  }
+
+  .aangan-categories__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .aangan-categories__title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #F5F0E8;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .aangan-categories__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .aangan-cat-card {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    text-decoration: none;
+    display: block;
+    background-color: #252017;
+  }
+
+  .aangan-cat-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .aangan-cat-card:hover .aangan-cat-image {
+    transform: scale(1.05);
+  }
+
+  .aangan-cat-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,22,20,0.9) 0%, rgba(26,22,20,0) 60%);
+    z-index: 2;
+  }
+
+  .aangan-cat-title {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: #F5F0E8;
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 500;
+    z-index: 3;
+    letter-spacing: -0.01em;
+  }
+
+  @media screen and (max-width: 990px) {
+    .aangan-categories__grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .aangan-categories__container { padding: 0 2rem; }
+    .aangan-categories { padding: 4rem 0; }
+  }
+
+  @media screen and (max-width: 550px) {
+    .aangan-categories__grid { grid-template-columns: 1fr; }
+    .aangan-categories__container { padding: 0 1.5rem; }
+  }
+{%- endstyle -%}
+
+<section class="aangan-categories">
+  <div class="aangan-categories__container">
+    <div class="aangan-categories__header">
+      <h2 class="aangan-categories__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="aangan-categories__grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="aangan-cat-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {%- assign cat_img_url = block.settings.image | image_url: width: 800 -%}
+            <img 
+              src="{{ cat_img_url }}" 
+              alt="{{ block.settings.title | escape }}"
+              class="aangan-cat-image"
+              loading="lazy"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+            >
+          {%- endif -%}
+          <div class="aangan-cat-overlay"></div>
+          <h3 class="aangan-cat-title">{{ block.settings.title }}</h3>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aangan Categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Shop by Category"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Card",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Living"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Category Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aangan Categories",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Living" } },
+        { "type": "category", "settings": { "title": "Bedroom" } },
+        { "type": "category", "settings": { "title": "Dining" } },
+        { "type": "category", "settings": { "title": "Lighting" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

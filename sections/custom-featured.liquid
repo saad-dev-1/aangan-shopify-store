@@ -1,0 +1,205 @@
+{%- style -%}
+  .aangan-featured {
+    background-color: #1A1614;
+    padding: 6rem 0;
+  }
+
+  .aangan-featured__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5rem;
+  }
+
+  .aangan-featured__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+    padding-bottom: 1.5rem;
+  }
+
+  .aangan-featured__title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #F5F0E8;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .aangan-featured__view-all {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #C4A57B;
+    text-decoration: none;
+    border-bottom: 1px solid #C4A57B;
+    padding-bottom: 0.25rem;
+    transition: all 0.3s ease;
+  }
+
+  .aangan-featured__view-all:hover {
+    color: #F5F0E8;
+    border-color: #F5F0E8;
+  }
+
+  .aangan-featured__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .aangan-product {
+    text-decoration: none;
+    display: block;
+  }
+
+  .aangan-product__image-wrap {
+    position: relative;
+    overflow: hidden;
+    background-color: #252017;
+    aspect-ratio: 4/5;
+    margin-bottom: 1.25rem;
+  }
+
+  .aangan-product__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .aangan-product:hover .aangan-product__image {
+    transform: scale(1.05);
+  }
+
+  .aangan-product__badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background-color: #C4A57B;
+    color: #1A1614;
+    padding: 0.35rem 0.75rem;
+    font-weight: 500;
+  }
+
+  .aangan-product__title {
+    font-family: 'Clash Display', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #F5F0E8;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: -0.01em;
+  }
+
+  .aangan-product__price {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.95rem;
+    color: #A8A095;
+    margin: 0;
+  }
+
+  @media screen and (max-width: 990px) {
+    .aangan-featured__grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .aangan-featured__container { padding: 0 2rem; }
+    .aangan-featured { padding: 4rem 0; }
+  }
+
+  @media screen and (max-width: 550px) {
+    .aangan-featured__grid { grid-template-columns: 1fr; }
+    .aangan-featured__container { padding: 0 1.5rem; }
+    .aangan-featured__header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+{%- endstyle -%}
+
+<section class="aangan-featured">
+  <div class="aangan-featured__container">
+    <div class="aangan-featured__header">
+      <h2 class="aangan-featured__title">{{ section.settings.title }}</h2>
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="aangan-featured__view-all">
+          {{ section.settings.view_all_text }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="aangan-featured__grid">
+      {%- assign collection = section.settings.collection -%}
+      {%- if collection != blank -%}
+        {%- for product in collection.products limit: 4 -%}
+          <a href="{{ product.url }}" class="aangan-product">
+            <div class="aangan-product__image-wrap">
+              {%- if product.featured_image != blank -%}
+                {%- assign img_url = product.featured_image | image_url: width: 800 -%}
+                <img 
+                  src="{{ img_url }}" 
+                  alt="{{ product.featured_image.alt | escape }}"
+                  class="aangan-product__image"
+                  loading="lazy"
+                  width="{{ product.featured_image.width }}"
+                  height="{{ product.featured_image.height }}"
+                >
+              {%- endif -%}
+              {%- if product.compare_at_price > product.price -%}
+                <span class="aangan-product__badge">Sale</span>
+              {%- elsif product.tags contains 'new' -%}
+                <span class="aangan-product__badge">New</span>
+              {%- endif -%}
+            </div>
+            <h3 class="aangan-product__title">{{ product.title }}</h3>
+            <p class="aangan-product__price">{{ product.price | money }}</p>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..4) -%}
+          <div class="aangan-product">
+            <div class="aangan-product__image-wrap"></div>
+            <h3 class="aangan-product__title">Product {{ i }}</h3>
+            <p class="aangan-product__price">Rs. 0</p>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aangan Featured",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View All Text",
+      "default": "View All"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View All Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aangan Featured"
+    }
+  ]
+}
+{% endschema %}

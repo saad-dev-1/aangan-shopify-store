@@ -1,0 +1,182 @@
+{%- style -%}
+  .aangan-hero {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+    background-color: #1A1614;
+  }
+
+  .aangan-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.75;
+  }
+
+  .aangan-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(26,22,20,0.85) 0%, rgba(26,22,20,0.3) 60%, rgba(26,22,20,0.1) 100%);
+    z-index: 2;
+  }
+
+  .aangan-hero__content {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 5rem;
+  }
+
+  .aangan-hero__inner {
+    max-width: 600px;
+  }
+
+  .aangan-hero__eyebrow {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C4A57B;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .aangan-hero__heading {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.05;
+    font-weight: 600;
+    color: #F5F0E8;
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.02em;
+  }
+
+  .aangan-hero__text {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #A8A095;
+    margin: 0 0 2.5rem 0;
+    max-width: 480px;
+  }
+
+  .aangan-hero__button {
+    display: inline-block;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #1A1614;
+    background-color: #C4A57B;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid #C4A57B;
+  }
+
+  .aangan-hero__button:hover {
+    background-color: transparent;
+    color: #C4A57B;
+  }
+
+  @media screen and (max-width: 768px) {
+    .aangan-hero__content { padding: 0 1.5rem; }
+    .aangan-hero { height: 80vh; min-height: 500px; }
+  }
+{%- endstyle -%}
+
+<section class="aangan-hero">
+  {%- if section.settings.image != blank -%}
+        {%- assign hero_image_url = section.settings.image | image_url: width: 2000 -%}
+    <img 
+      src="{{ hero_image_url }}" 
+      alt="{{ section.settings.image.alt | escape }}"
+      class="aangan-hero__image"
+      loading="eager"
+      width="{{ section.settings.image.width }}"
+      height="{{ section.settings.image.height }}"
+    >
+  {%- endif -%}
+
+  <div class="aangan-hero__overlay"></div>
+
+  <div class="aangan-hero__content">
+    <div class="aangan-hero__inner">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="aangan-hero__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="aangan-hero__heading">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="aangan-hero__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link }}" class="aangan-hero__button">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aangan Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "New Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Crafted for Modern Living"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Description",
+      "default": "Timeless furniture, thoughtfully designed and handcrafted for your home."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Explore Collection"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aangan Hero"
+    }
+  ]
+}
+{% endschema %}

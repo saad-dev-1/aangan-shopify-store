@@ -1,0 +1,157 @@
+{%- style -%}
+  .aangan-newsletter {
+    background-color: #252017;
+    padding: 6rem 0;
+    border-top: 1px solid rgba(245, 240, 232, 0.08);
+    border-bottom: 1px solid rgba(245, 240, 232, 0.08);
+  }
+
+  .aangan-newsletter__container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+
+  .aangan-newsletter__eyebrow {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #C4A57B;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .aangan-newsletter__heading {
+    font-family: 'Clash Display', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: #F5F0E8;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.02em;
+  }
+
+  .aangan-newsletter__text {
+    font-family: 'Satoshi', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #A8A095;
+    margin: 0 0 2.5rem 0;
+  }
+
+  .aangan-newsletter__form {
+    display: flex;
+    gap: 0;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .aangan-newsletter__input {
+    flex-grow: 1;
+    background-color: #1A1614;
+    border: 1px solid rgba(245, 240, 232, 0.15);
+    color: #F5F0E8;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.95rem;
+    padding: 1rem 1.25rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .aangan-newsletter__input::placeholder {
+    color: #6A6560;
+  }
+
+  .aangan-newsletter__input:focus {
+    border-color: #C4A57B;
+  }
+
+  .aangan-newsletter__button {
+    background-color: #C4A57B;
+    color: #1A1614;
+    font-family: 'Satoshi', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 1rem 2rem;
+    border: 1px solid #C4A57B;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .aangan-newsletter__button:hover {
+    background-color: transparent;
+    color: #C4A57B;
+  }
+
+  @media screen and (max-width: 550px) {
+    .aangan-newsletter__form { flex-direction: column; }
+    .aangan-newsletter__button { width: 100%; }
+    .aangan-newsletter { padding: 4rem 0; }
+  }
+{%- endstyle -%}
+
+<section class="aangan-newsletter">
+  <div class="aangan-newsletter__container">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="aangan-newsletter__eyebrow">{{ section.settings.eyebrow }}</p>
+    {%- endif -%}
+
+    <h2 class="aangan-newsletter__heading">{{ section.settings.heading }}</h2>
+    <p class="aangan-newsletter__text">{{ section.settings.text }}</p>
+
+    {%- form 'customer', class: 'aangan-newsletter__form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input 
+        type="email" 
+        name="contact[email]" 
+        class="aangan-newsletter__input"
+        placeholder="Your email address"
+        required
+      >
+      <button type="submit" class="aangan-newsletter__button">
+        {{ section.settings.button_text }}
+      </button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aangan Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Stay Connected"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the Aangan Family"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Description",
+      "default": "Be the first to know about new collections, exclusive offers, and design inspiration."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aangan Newsletter"
+    }
+  ]
+}
+{% endschema %}
