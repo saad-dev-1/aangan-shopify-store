@@ -64,3 +64,47 @@ Every section on the homepage was written from scratch in Liquid:
 
 ## Project Structure
 
+aangan-shopify-store/
+├── assets/ → CSS, JS, fonts
+├── config/ → Theme settings
+├── layout/ → theme.liquid
+├── sections/ → All custom sections
+├── snippets/ → Reusable components
+├── templates/ → Page templates
+└── locales/ → Translations
+
+
+Every custom section lives in `sections/` with the `custom-` prefix so you can spot my work easily.
+
+---
+
+## What I Learned
+
+Building Aangan taught me more than any tutorial could:
+
+1. **Liquid is deceptively simple.** It looks like basic templating, but knowing when to use `assign`, `capture`, or inline logic changes everything.
+
+2. **Design systems matter.** Picking colors and fonts isn't enough — the spacing, weight, and rhythm have to work together. I rewrote the Hero section four times before it felt right.
+
+3. **Restraint is hard.** It's easy to add another section. It's much harder to know when to stop.
+
+4. **Development stores are limited.** The password protection can't be disabled, which is why the live demo requires a password. That's a Shopify thing, not a bug.
+
+---
+
+## About Me
+
+I'm **Saad Ahmad**, a frontend developer from Pakistan exploring Shopify theme development. Aangan is my first fully custom Shopify project, and it's the one I'm proudest of so far.
+
+If you're hiring, collaborating, or just want to talk shop — reach out.
+
+- **GitHub:** [@saad-dev-1](https://github.com/saad-dev-1)
+- **Email:** sa1717595@gmail.com
+
+---
+
+## A Note
+
+This is a portfolio project built for demonstration. The products, brand, and content are fictional. The code is real, the effort is real, and the learning was real.
+
+If you're a Shopify developer starting out — feel free to look through the sections folder. That's where most of the interesting work lives.
