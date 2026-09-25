@@ -5,7 +5,7 @@ Aangan is a fictional Pakistani furniture brand I built to sharpen my Shopify an
 I drew inspiration from Vipp and Audo Copenhagen — both brands that let their products breathe through restraint. No loud banners, no cluttered grids. Just furniture, presented well.
 
 **[View Live Store →](https://aangan-dev.myshopify.com)**  
-*(Password: your-password-here)*
+*(Password: aangan2026)*
 
 ---
 
