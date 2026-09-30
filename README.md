@@ -7,7 +7,7 @@ Not for a client. Not for a job. Just to know whether I could take a vague idea 
 The brand is fictional. The products don't exist. The craft is real.
 
 **[Live store →](https://aangan-dev.myshopify.com)**
-Password: `[YOUR_PASSWORD_HERE]`
+Password: `aangan2026`
 
 ---
 
